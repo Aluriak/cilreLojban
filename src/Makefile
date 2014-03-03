@@ -6,4 +6,6 @@ loj:
 eng:
 	python3 eng2loj/eng2loj.py
 
+upt:
+	python3 updater/updater.py
 
