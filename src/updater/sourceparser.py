@@ -45,6 +45,6 @@ class Parser:
                               line[63:160],
                               line[160:170],
                               line[170:]
-                             ])
+                             ]))
 
         else: return None
