@@ -11,7 +11,7 @@ import sys
 
 import sqlite3
 import tempfile
-from urllib2 import urlopen
+from urllib.request import urlopen
 
 from sourceparser import Parser
 
