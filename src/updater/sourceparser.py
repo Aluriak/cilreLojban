@@ -34,17 +34,17 @@ class Parser:
     def __iter__(self):
 
         line = self.fh.readline()
-        if line != '':
+        while line:
 
             # split, tuple and return
-            return tuple(map(lambda _ : _.strip(),
-                             [line[:8],
-                              line[8:21],
-                              line[21:42],
-                              line[42:63],
-                              line[63:160],
-                              line[160:170],
+            yield tuple(map(lambda _ : _.strip(),
+                             [line[:7],
+                              line[8:20],
+                              line[21:41],
+                              line[42:62],
+                              line[63:159],
+                              line[160:169],
                               line[170:]
                              ]))
+            line = self.fh.readline()
 
-        else: return None
