@@ -10,6 +10,7 @@
 import sys
 
 import sqlite3
+import re
 import tempfile
 from urllib.request import urlopen
 
