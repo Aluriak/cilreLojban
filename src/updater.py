@@ -13,6 +13,7 @@ import sqlite3
 import re
 import tempfile
 from urllib.request import urlopen
+from urllib.error import URLError
 
 from updater.sourceparser import Parser
 
@@ -51,7 +52,7 @@ def main():
 
     # then grab the file
     try:
-        distant_dict = urllopen(SOURCE_DICT)
+        distant_dict = urlopen(SOURCE_DICT)
     except URLError as err:
         sys.stderr.write("Well... urllopen just didn't work: {}".format(err))
 
