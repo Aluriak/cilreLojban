@@ -31,7 +31,7 @@ if len(arg) < 2:
     print("usage: <english word>")
 else:
     gismu = Gismu(english=argv[1])
-    if gismu.founded:
+    if gismu.found:
         print(gismu)
     else:
         print("No gismu founded !")

@@ -82,7 +82,7 @@ Search in dbutils.settings for name of database
 
 # PREDICATS ###################################################################
     @property
-    def founded(self):
+    def found(self):
         """True if gismu was found when search in DB"""
         return self.gismu is not None
 
