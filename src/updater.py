@@ -45,9 +45,10 @@ def main():
     # first, clean Db and regenerate it
     db = sqlite3.connect(DBNAME)
     with open(SCHEMA_SQL) as f:
-        for command in f:
-            if len(command) > 1:        
-                db.execute(command)
+        # for command in f:
+        #     if len(command) > 1:        
+        #         db.execute(command)
+        db.executescript(f.read())
 
     c = db.cursor()
 
