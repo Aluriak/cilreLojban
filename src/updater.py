@@ -38,11 +38,12 @@ def crossref_building():
         cfs = cf_regex.search(dic['comment'])
         if cfs:
             referenced = gismu_regex.findall(cfs.groups()[0])
+            for r in referenced:
+                if gismu_list.get(r):
+                    c.execute('INSERT INTO crossref(src,ref) VALUES(?,?)', (dic['id'], gismu_list.get(r)['id']))
 
-            map(
-                lambda g: c.execute('INSERT INTO crossref(src,ref) VALUES(?,?)', (dic['id'], gismu_list.get(g)['id'])),
-                referenced
-            )
+    dbh.commit()
+    dbh.close()
 
 
 def main():
