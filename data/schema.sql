@@ -37,8 +37,8 @@ create table if not exists 'crossref' (
     -- id is rowid
     src integer,
     ref integer,
-    foreign key(src) references(dico.rowid),
-    foreign key(ref) references(dico.rowid)
+    foreign key(src) references dico(rowid),
+    foreign key(ref) references dico(rowid)
 );
 
 -- vim:et
