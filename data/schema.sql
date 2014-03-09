@@ -23,8 +23,8 @@
 --
 
 -- DROPS
-drop table dico if exists;
-drop table crossref if exists;
+drop table if exists crossref;
+drop table if exists dico;
 
 
 -- CREATS
