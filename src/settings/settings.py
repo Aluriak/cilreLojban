@@ -26,8 +26,8 @@
 
 
 SOURCE_DICT = "http://www.lojban.org/publications/wordlists/gismu.txt"
-SCHEMA_SQL='data/schema.sql'
-DBNAME = "data/db"
+SCHEMA_SQL='../data/schema.sql'
+DBNAME = "../data/db"
 
 
 
