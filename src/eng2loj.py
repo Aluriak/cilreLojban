@@ -30,7 +30,7 @@ arg = sys.argv
 if len(arg) < 2:
     print("usage: <english word>")
 else:
-    gismu = Gismu(english=argv[1])
+    gismu = Gismu(english=arg[1])
     if gismu.found:
         print(gismu)
     else:
