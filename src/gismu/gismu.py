@@ -23,7 +23,7 @@
 #  0. You just DO WHAT THE FUCK YOU WANT TO.
 #
 
-from settings import DBNAME
+from settings.settings import DBNAME
 import sqlite3
 
 class Gismu(object):
@@ -52,7 +52,7 @@ Search in dbutils.settings for name of database
         elif self.english is not None:
             gismul = c.execute("SELECT * FROM dico WHERE english=?", self.english)
         print("DEBUG: " + str(gismul))
-        if len(requestResult) > 0): 
+        if len(requestResult) > 0: 
             # take the first one
             gismu = requestResult[0]
             # assign values as self's attributes 

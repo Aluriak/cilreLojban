@@ -8,7 +8,7 @@
 # IMPORTS               #
 #########################
 import sys
-from gismu import Gismu 
+from gismu.gismu import Gismu 
 
 
 
@@ -26,14 +26,15 @@ from gismu import Gismu
 # TREATMENT             #
 #########################
 arg = sys.argv
-print(arg)
 
-
-gismu = Gismu(english=argv[1])
-if gismu.founded:
-    print(gismu)
+if len(arg) < 2:
+    print("usage: <english word>")
 else:
-    print("No gismu founded !")
+    gismu = Gismu(english=argv[1])
+    if gismu.founded:
+        print(gismu)
+    else:
+        print("No gismu founded !")
 
 
 

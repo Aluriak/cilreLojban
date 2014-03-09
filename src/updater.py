@@ -14,18 +14,19 @@ import re
 import tempfile
 from urllib.request import urlopen
 
-from sourceparser import Parser
+from updater.sourceparser import Parser
 
-from settings import DBNAME, SOURCE_DICT
+from settings.settings import DBNAME, SOURCE_DICT, SCHEMA_SQL
 
 if __name__ == '__main__':
 
     # first, clean Db and regenerate it
-    db = slqite3.connect_db(DBNAME)
-    db.execute("DROP TABLE dico     IF EXISTS;")
-    db.execute("DROP TABLE crossref IF EXISTS;")
-    with open('schema.sql') as f:
-        db.execute(f.read())
+    db = sqlite3.connect(DBNAME)
+    #db.execute("DROP TABLE dico IF EXISTS;") # don't like this syntaxe sqlite3.OperationalError: near "IF": syntax error
+    #db.execute("DROP TABLE crossref IF EXISTS;") # idem
+    with open(SCHEMA_SQL) as f:
+        for command in f:
+            db.execute(command)
 
     c = db.cursor()
 
