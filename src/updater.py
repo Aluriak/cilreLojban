@@ -19,8 +19,10 @@ from updater.sourceparser import Parser
 
 from settings.settings import DBNAME, SOURCE_DICT, SCHEMA_SQL
 
-def crossref_building(dbh):
+def crossref_building():
     """ Create crossrefs """
+
+    dbh = sqlite3.connect(DBNAME)
 
     cf_regex = re.compile('\(cf\. ([^\)]+)\)')
     gismu_regex = re.compile(' (\w{5})')
@@ -29,16 +31,18 @@ def crossref_building(dbh):
     all_gismu = c.execute("SELECT rowid,gismu,comment FROM dico;").fetchall()
 
     # then create a dict of dict :
-    gismu_list = {_[1]:{'id':_[0], 'comment':_[2]} for _ in all_gismu}
+    gismu_list = {_[1].decode('utf8'):{'id':_[0], 'comment':_[2].decode('utf8')} for _ in all_gismu}
 
-    for gismu,dic in gismu_list:
+    for gismu,dic in gismu_list.items():
         print('Processing {}'.format(gismu))
-        referenced = gismu_regex.findall(cf_regex.search(dic['comment']).groups()[0])
+        cfs = cf_regex.search(dic['comment'])
+        if cfs:
+            referenced = gismu_regex.findall(cfs.groups()[0])
 
-        map(
-            lambda g: c.execute('INSERT INTO crossref(src,ref) VALUES(?,?)', (dic['id'], gismu_list.get(g)['id'])),
-            referenced
-        )
+            map(
+                lambda g: c.execute('INSERT INTO crossref(src,ref) VALUES(?,?)', (dic['id'], gismu_list.get(g)['id'])),
+                referenced
+            )
 
 
 def main():
@@ -64,10 +68,10 @@ def main():
         c.executemany(
             'INSERT INTO dico(gismu,rafsi,english,globalenglish,definition,unknown,comment) VALUES (?,?,?,?,?,?,?);', p)
 
-    c.close()
-
-    crossref_building(db)
-
+    db.commit()
     db.close()
+
+    crossref_building()
+
 
 if __name__=='__main__': main()
