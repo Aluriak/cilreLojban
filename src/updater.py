@@ -44,11 +44,10 @@ def main():
 
     # first, clean Db and regenerate it
     db = sqlite3.connect(DBNAME)
-    #db.execute("DROP TABLE dico IF EXISTS;") # don't like this syntaxe sqlite3.OperationalError: near "IF": syntax error
-    #db.execute("DROP TABLE crossref IF EXISTS;") # idem
     with open(SCHEMA_SQL) as f:
         for command in f:
-            db.execute(command)
+            if len(command) > 1:        
+                db.execute(command)
 
     c = db.cursor()
 

@@ -22,6 +22,12 @@
 --
 --
 
+-- DROPS
+drop table dico if exists;
+drop table crossref if exists;
+
+
+-- CREATS
 create table if not exists 'dico' (
     -- id is rowid
     gismu varchar(10) not null unique,
