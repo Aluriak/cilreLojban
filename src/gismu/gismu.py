@@ -37,6 +37,7 @@ Search in dbutils.settings for name of database
     def __init__(self, gismu=None, english=None):
         self.gismu = gismu
         self.english = english
+        self._db_lookup()
 
 
 # PROTECTED METHODS ###########################################################
@@ -48,13 +49,21 @@ Search in dbutils.settings for name of database
 
         # TREATMENT
         if self.gismu is not None:
-            gismul = c.execute("SELECT * FROM dico WHERE gismu=?", self.gismu)
+            c.execute("SELECT * FROM dico WHERE gismu LIKE ?", (self.gismu,))
+            #c.execute("SELECT * FROM dico")
         elif self.english is not None:
-            gismul = c.execute("SELECT * FROM dico WHERE english=?", self.english)
-        print("DEBUG: " + str(gismul))
+            c.execute("SELECT * FROM dico WHERE english LIKE ?", (self.english,))
+        else:
+            print("ERROR: gismu or english word must be given")
+        requestResult = [row for row in c]
+
+        #print("DEBUG: type is " + str(type(requestResult)) + " of size " + str(len(requestResult)) + " for values " + str(requestResult))
+
         if len(requestResult) > 0: 
             # take the first one
             gismu = requestResult[0]
+            # decode into utf8
+            gismu = [v.decode('utf-8') for v in gismu]
             # assign values as self's attributes 
             self.gismu, self.rafsi, self.english = gismu[0], gismu[1], gismu[2]
             self.synenglish, self.definition = gismu[3], gismu[4]
@@ -84,7 +93,7 @@ Search in dbutils.settings for name of database
         return (self.gismu 
               + "\nrafsi: " + self.rafsi
               + "\nenglish: " + self.english
-              + "\ndefinition" + self.definition
+                + "\ndefinition: " + self.definition
               + "\nunknow: " + self.unknow
               + "\ncomment: " + self.comment
             )
