@@ -33,8 +33,8 @@ def crossref_building():
     # then create a dict of dict :
     gismu_list = {_[1].decode('utf8'):{'id':_[0], 'comment':_[2].decode('utf8')} for _ in all_gismu}
 
+    print("Initializing cross-references...")
     for gismu,dic in gismu_list.items():
-        print('Processing {}'.format(gismu))
         cfs = cf_regex.search(dic['comment'])
         if cfs:
             referenced = gismu_regex.findall(cfs.groups()[0])
