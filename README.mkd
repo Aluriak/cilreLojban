@@ -2,5 +2,14 @@
 Learn lojban and contribute to Wikipedia  
 
 
+# DONE
+- lojban to english script;
+- english to lojban script;
+- updater script;
+
+# TODO
+- fix DB content (especially english field);
+- learn lojban;
+- contribute to WP;
 
 
