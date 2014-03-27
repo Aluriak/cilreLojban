@@ -23,103 +23,36 @@
 #  0. You just DO WHAT THE FUCK YOU WANT TO.
 #
 
-from settings.settings import DBNAME
-import sqlite3
 
-class Gismu(object):
+#########################
+# CLASS GISMU           #
+#########################
+class Gismu:
     """
 Definition of a Gismu, with rafsi, translation in english, definition, 
 references to another gismu,...
-Search in dbutils.settings for name of database 
     """
 
 # CONSTRUCTOR #################################################################
-    def __init__(self, gismu=None, english=None):
-        self.gismu = gismu
-        self.english = english
-        self._db_lookup()
-
-
-# PROTECTED METHODS ###########################################################
-    def _db_lookup(self):
-        """ Look up through database to find the right definition and references """
-        # INIT
-        db = sqlite3.connect(DBNAME)
-        c = db.cursor()
-
-        # TREATMENT
-        if self.gismu is not None:
-            c.execute("SELECT * FROM dico WHERE gismu LIKE ?", (self.gismu,))
-            #c.execute("SELECT * FROM dico")
-        elif self.english is not None:
-            c.execute("SELECT * FROM dico WHERE english LIKE ?", (self.english,))
-        else:
-            print("ERROR: gismu or english word must be given")
-        requestResult = [row for row in c]
-
-        #print("DEBUG: type is " + str(type(requestResult)) + " of size " + str(len(requestResult)) + " for values " + str(requestResult))
-
-        if len(requestResult) > 0: 
-            # take the first one
-            gismu = requestResult[0]
-            # decode into utf8
-            gismu = [v.decode('utf-8') for v in gismu]
-            # assign values as self's attributes 
-            self.gismu, self.rafsi, self.english = gismu[0], gismu[1], gismu[2]
-            self.synenglish, self.definition = gismu[3], gismu[4]
-            self.unknow, self.comment = gismu[5], gismu[6]
-        else:
-            # set attributes to None
-            self.gismu, self.rafsi, self.english = None, None, None
-            self.synenglish, self.definition = None, None
-            self.unknow, self.comment = None, None
-
-        # END
-        c.close()
-        db.close()
-
-
-
-# PREDICATS ###################################################################
-    @property
-    def found(self):
-        """True if gismu was found when search in DB"""
-        return self.gismu is not None
+    def __init__(self, name, rafsi, english, globenglish, 
+                 definition, unknow, comment):
+            # attributes
+            self.name, self.rafsi, self.english = name, rafsi, english
+            self.globenglish, self.definition = globenglish, definition
+            self.unknow, self.comment = unknow, comment
 
 
 
 # CONVERSION ##################################################################
     def __str__(self):
-        return (self.gismu 
+        return ("\n\tGISMU: " + self.name
               + "\nrafsi: " + self.rafsi
               + "\nenglish: " + self.english
-                + "\ndefinition: " + self.definition
+              + "\nconcept: " + self.globenglish
+              + "\ndefinition: " + self.definition
               + "\nunknow: " + self.unknow
               + "\ncomment: " + self.comment
-            )
-
-
-
-
-
-if __name__ == '__main__':
-    s = 'besna'
-    g = Gismu(s)
-    if not g.founded:
-        print(s+" not found in DB")
-        exit(1)
-
-    print(g)
-
-
-
-    e = 'run'
-    g = Gismu(english=e)
-    if not g.founded:
-        print(s+" not found in DB")
-        exit(1)
-
-    print(g)
+        )
 
 
 
