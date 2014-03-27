@@ -39,12 +39,12 @@ class Parser:
             # split, tuple and return
             yield tuple(map(lambda _ : _.strip(),
                              [line[:7],
-                              line[8:20],
-                              line[21:41],
-                              line[42:62],
-                              line[63:159],
-                              line[160:169],
-                              line[170:]
+                              line[7:20],
+                              line[20:41],
+                              line[41:62],
+                              line[62:159],
+                              line[159:169],
+                              line[169:]
                              ]))
             line = self.fh.readline()
 
