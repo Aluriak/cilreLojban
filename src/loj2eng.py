@@ -8,7 +8,7 @@
 # IMPORTS               #
 #########################
 import sys
-from gismu.gismu import Gismu 
+from gismu.gismuFinder import GismuFinder
 
 
 
@@ -30,11 +30,12 @@ arg = sys.argv
 if len(arg) < 2:
     print("usage: <lojban word>")
 else:
-    gismu = Gismu(arg[1])
-    if gismu.found:
+    for gismu in GismuFinder(gismu_name=arg[1]):
         print(gismu)
-    else:
-        print("No gismu founded !")
+        print("\n\n")
+    # if no gismu: 
+    else: 
+        print("END")
 
 
 
