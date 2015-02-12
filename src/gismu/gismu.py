@@ -45,13 +45,13 @@ references to another gismu,...
 
 # CONVERSION ##################################################################
     def __str__(self):
-        return ("\n\tGISMU: " + self.name
-              + "\nrafsi: " + self.rafsi
-              + "\nenglish: " + self.english
-              + "\nconcept: " + self.globenglish
-              + "\ndefinition: " + self.definition
-              + "\nunknow: " + self.unknow
-              + "\ncomment: " + self.comment
+        return(   "GISMU      : " + self.name
+              + "\nrafsi      : " + self.rafsi
+              + "\nenglish    : " + self.english
+              + "\nconcept    : " + self.globenglish
+              + "\ndefinition : " + self.definition
+              + "\nunknow     : " + self.unknow
+              + "\ncomment    : " + self.comment
         )
 
 
