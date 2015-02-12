@@ -25,17 +25,14 @@ from gismu.gismuFinder import GismuFinder
 #########################
 # TREATMENT             #
 #########################
-arg = sys.argv
+if __name__ == '__main__':
+    arg = sys.argv
 
-if len(arg) < 2:
-    print("usage: <english word>")
-else:
-    for gismu in GismuFinder(gismu_english=arg[1]):
-        print(gismu)
-        print("\n\n")
-    # if no gismu: 
-    else: 
-        print("END")
+    if len(arg) < 2:
+        print("usage: <english word>")
+    else:
+        inter = "\n--------------------------------------------------------\n"
+        print(inter.join((str(gismu) for gismu in GismuFinder(gismu_english=arg[1]))))
 
 
 
